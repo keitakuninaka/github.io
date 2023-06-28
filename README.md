@@ -1,1 +1,0 @@
-# keitakuninaka.github.io
