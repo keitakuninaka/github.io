@@ -98,6 +98,57 @@ startButton.addEventListener('click', function() {
 stopButton.addEventListener('click', function() {
     asr.stop();
 })
+
+//25始まり
+<input name="query" id="query" value="" >
+<input type="button" value="実行" onclick="showAddress()">
+
+<p>
+<div id="resultOutput"></div>
+</p>
+
+<script type="text/javascript">
+<!--
+//住所の情報を表示する
+function showAddress() {
+  //var appid = 'あなたのアプリケーションID';
+  var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
+  var query = document.getElementById('query').value;
+  var url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid=" + appid + "&query=" + encodeURI( query ) + "&output=json&callback=showResult";
+  callJSONP( url );
+}
+
+//JSONPを実行する関数
+function callJSONP(url) {
+  console.log(url);
+  var target = document.createElement('script');
+  target.charset = 'utf-8';
+  target.src = url;
+  document.body.appendChild(target);
+}
+
+//JSONPの結果として実行される関数
+function showResult( result ) {
+  let output = '';
+
+  //console.log(result);
+  console.log(result.Feature);
+i=0
+  	console.log(result.Feature[i]);
+  	let name = result.Feature[i].Name;
+  	let location = result.Feature[i].Geometry.Coordinates;
+  	output += name + "/" + location + "<br>";
+  	resultOutput.innerHTML = output;
+  
+  
+}
+-->
+//25終わり
+
+//26始まり
+
+//	
+	
 </script>
 
 </body>
