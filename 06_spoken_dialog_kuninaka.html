@@ -33,7 +33,7 @@ var response = {
 　　"和歌山好ラーメン屋":["和歌山県のおいしいラーメン屋を表示します", "https://tabelog.com/ramen/wakayama/rank/"],
 　　"大阪好ラーメン屋":["大阪府のおいしいラーメン屋を表示します", "https://tabelog.com/ramen/osaka/rank/"],
     "嫌食物。":"ピーマンです",
-    "和歌山天気。":"showAddress()"
+    "和歌山天気。":"showWeather()"
 };
 let ret = response[transcript];
 answer = ret[0];
@@ -103,6 +103,11 @@ stopButton.addEventListener('click', function() {
 
 //25始まり
 
+function showWeather() {
+  <input name="query" id="query" value="" >
+  <input type="button" value="実行" onclick="showAddress()">
+}
+	
 <p>
 <div id="resultOutput"></div>
 </p>
@@ -157,7 +162,7 @@ i=0;
 function showWeather() {
   //var appid = 'あなたのアプリケーションID';
   var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
-  var query = document.getElementById('location').value;
+  var query = document.getElementById('query').value;
   var url = "https://map.yahooapis.jp/weather/V1/place?appid=" + appid + "&coordinates=" + encodeURI( query ) + "&output=json&callback=showResult";
   callJSONP( url );
 }
