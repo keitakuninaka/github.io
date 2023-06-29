@@ -1,0 +1,67 @@
+<html lang="ja">
+<head>
+<meta http-equiv="content-script-type" content="text/javascript">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>JSONPを使ったYahoo! JAPAN Web API利用のサンプル（位置情報検索）</title>
+</head>
+<body>
+
+<h1>JSONPを使ったYahoo! JAPAN Web API利用のサンプル（位置情報検索）</h1>
+
+<p>
+参考：<br>
+JSONPを使ってJavaScriptだけでマッシュアップ：https://techblog.yahoo.co.jp/javascript/jsonpjavascript/<br>
+Yahoo!ジオコーダAPI: https://developer.yahoo.co.jp/webapi/map/openlocalplatform/v1/geocoder.html
+</p>
+
+<input name="query" id="query" value="" >
+<input type="button" value="実行" onclick="showAddress()">
+
+<p>
+<div id="resultOutput"></div>
+</p>
+
+<script type="text/javascript">
+<!--
+//住所の情報を表示する
+function showAddress() {
+  //var appid = 'あなたのアプリケーションID';
+  var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
+  var query = document.getElementById('query').value;
+  var url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid=" + appid + "&query=" + encodeURI( query ) + "&output=json&callback=showResult";
+  callJSONP( url );
+}
+
+//JSONPを実行する関数
+function callJSONP(url) {
+  console.log(url);
+  var target = document.createElement('script');
+  target.charset = 'utf-8';
+  target.src = url;
+  document.body.appendChild(target);
+}
+
+//JSONPの結果として実行される関数
+function showResult( result ) {
+  let output = '';
+
+  //console.log(result);
+  console.log(result.Feature);
+i=0
+  	console.log(result.Feature[i]);
+  	let name = result.Feature[i].Name;
+  	let location = result.Feature[i].Geometry.Coordinates;
+  	output += name + "/" + location + "<br>";
+  	resultOutput.innerHTML = output;
+  
+  
+}
+-->
+</script>
+
+<!-- Yahoo!JAPANのAPIを利用したときはクレジット表記が必要 -->
+<p>
+Web Services by Yahoo! JAPAN （https://developer.yahoo.co.jp/sitemap/）
+</p>
+</body>
+</html>
