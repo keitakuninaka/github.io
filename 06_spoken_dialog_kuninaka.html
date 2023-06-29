@@ -118,7 +118,7 @@ function showWeather() {
 function showAddress() {
   //var appid = 'あなたのアプリケーションID';
   var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
-  var query = document.getElementById('和歌山市').value;
+  var query = document.getElementById('query').value;
   var url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid=" + appid + "&query=" + encodeURI( query ) + "&output=json&callback=showResult";
   callJSONP( url );
 }
