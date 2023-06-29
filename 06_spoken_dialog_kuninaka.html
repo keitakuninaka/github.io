@@ -33,7 +33,7 @@ var response = {
 　　"和歌山好ラーメン屋":["和歌山県のおいしいラーメン屋を表示します", "https://tabelog.com/ramen/wakayama/rank/"],
 　　"大阪好ラーメン屋":["大阪府のおいしいラーメン屋を表示します", "https://tabelog.com/ramen/osaka/rank/"],
     "嫌食物。":"ピーマンです",
-    "天気。":"晴れです"
+    "和歌山天気。":"showAddress()"
 };
 let ret = response[transcript];
 answer = ret[0];
@@ -98,10 +98,10 @@ startButton.addEventListener('click', function() {
 stopButton.addEventListener('click', function() {
     asr.stop();
 })
+//音声終わり
+	
 
 //25始まり
-<input name="query" id="query" value="" >
-<input type="button" value="実行" onclick="showAddress()">
 
 <p>
 <div id="resultOutput"></div>
@@ -113,7 +113,7 @@ stopButton.addEventListener('click', function() {
 function showAddress() {
   //var appid = 'あなたのアプリケーションID';
   var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
-  var query = document.getElementById('query').value;
+  var query = document.getElementById('和歌山市').value;
   var url = "https://map.yahooapis.jp/geocode/V1/geoCoder?appid=" + appid + "&query=" + encodeURI( query ) + "&output=json&callback=showResult";
   callJSONP( url );
 }
@@ -133,7 +133,7 @@ function showResult( result ) {
 
   //console.log(result);
   console.log(result.Feature);
-i=0
+i=0;
   	console.log(result.Feature[i]);
   	let name = result.Feature[i].Name;
   	let location = result.Feature[i].Geometry.Coordinates;
@@ -146,11 +146,10 @@ i=0
 //25終わり
 
 //26始まり
-<input name="query" id="query" value="" >
-<input type="button" value="実行" onclick="showWeather()">
+
 
 <p>
-<div id="resultOutput"></div>
+<div id="resultOutput1"></div>
 </p>
 
 <script type="text/javascript">
@@ -158,7 +157,7 @@ i=0
 function showWeather() {
   //var appid = 'あなたのアプリケーションID';
   var appid = 'dj00aiZpPWVmYUg3S0FFRjNHQiZzPWNvbnN1bWVyc2VjcmV0Jng9YWI-';
-  var query = document.getElementById('query').value;
+  var query = document.getElementById('location').value;
   var url = "https://map.yahooapis.jp/weather/V1/place?appid=" + appid + "&coordinates=" + encodeURI( query ) + "&output=json&callback=showResult";
   callJSONP( url );
 }
@@ -182,17 +181,17 @@ function showResult( result ) {
 	let name = result.Feature[0].Name;
 	console.log(name);
 	output += "<h2>" + name + "</h2>";
-	
-	for(let i=0; i < result.Feature[0].Property.WeatherList.Weather.length; i++){
+
+	  i=0;
 		let weather_type = result.Feature[0].Property.WeatherList.Weather[i].Type;
 		let weather_date = result.Feature[0].Property.WeatherList.Weather[i].Date;
 		let weather_rainfall = result.Feature[0].Property.WeatherList.Weather[i].Rainfall;
 		output += weather_type + "/" + weather_date + "/" + weather_rainfall + "<br>";
-	}
+	
   }else{
   	output = "not found";
   }
-  resultOutput.innerHTML = output;
+  resultOutput1.innerHTML = output;
   
 }
 -->
