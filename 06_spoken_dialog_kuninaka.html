@@ -28,8 +28,13 @@ var response = {
     "元気。":"元気ですよー",
     "好食物。": "焼肉です",
     "嫌食物。":"ピーマンです",
-    "天気。":"晴れです"
+    "和歌山天気。":["晴れです", "https://tenki.jp/forecast/6/33/6510/30201/1hour.html"]
 };
+
+let ret = response[transcript];
+answer = ret[0];
+webpage = ret[1];
+	
 // この中身を書いてください。
 const startButton = document.querySelector('#startButton'); // 開始ボタン
 const stopButton = document.querySelector('#stopButton'); // 停止ボタン
