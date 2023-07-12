@@ -67,10 +67,13 @@ asr.onresult = function(event){
         resultOutput.innerHTML = newText + " => " + response[newText]; // 応答結果の出力
         output += transcript + " => " + response[newText] + '<br>';
 
-        tts.text = response[newText];
+         tts.text = answer;
 	    // 再生が終了（end）ときのイベントハンドラ（終了したときに実行される）
 	    tts.onend = function(event){
-	        asr.start(); // 音声認識を再開
+            if(typeof webpage != 'undefined'){
+                location.href = webpage; // ページを移動
+            }   
+            asr.start(); // 音声認識を再開 
 	    }
 
         speechSynthesis.speak(tts); // 再生
