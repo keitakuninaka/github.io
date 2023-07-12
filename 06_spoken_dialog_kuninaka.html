@@ -44,15 +44,23 @@
             speakMikuResponse(mikuResponse);
         }
         
-        // 音声入力を開始する関数
+       // 音声入力を開始する関数
         function startListening() {
-            // 音声認識の開始処理を実装する
-            // ユーザーの音声をテキストに変換し、processUserInput関数に渡す
+            recognition = new webkitSpeechRecognition(); // Chrome用にプレフィックスを付ける
+            recognition.lang = "ja-JP"; // 認識する言語を日本語に設定
+            recognition.continuous = true; // 連続的に音声を認識する
+            
+            recognition.onresult = function(event) {
+                const userInput = event.results[event.results.length - 1][0].transcript;
+                processUserInput(userInput);
+            };
+            
+            recognition.start(); // 音声認識を開始
         }
         
         // 音声入力を停止する関数
         function stopListening() {
-            // 音声認識の停止処理を実装する
+            recognition.stop(); // 音声認識を停止
         }
     </script>
 </body>
