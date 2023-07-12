@@ -17,13 +17,21 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         let recognition;
+        let currentVoiceGender = "Japanese Female";
         
         // 応答を音声で再生する関数
         function speakResponse(response, voiceGender) {
             responsiveVoice.speak(response, voiceGender);
         }
-
-
+        
+        // 音声の性別を切り替える関数
+        function toggleVoiceGender() {
+            if (currentVoiceGender === "Japanese Female") {
+                currentVoiceGender = "Japanese Male";
+            } else {
+                currentVoiceGender = "Japanese Female";
+            }
+        }
         
         // ユーザーの入力を処理する関数
         async function processUserInput(userInput) {
@@ -41,7 +49,7 @@
             document.getElementById("conversation").appendChild(aiMessage);
             
             // AIの応答を音声で再生
-            speakAIResponse(response);
+            speakAIResponse(currentVoiceGender);
         }
         
         // AIの応答を生成する関数
@@ -89,14 +97,7 @@
             recognition.stop(); // 音声認識を停止
         }
 
-        // 音声の性別を切り替える関数
-        function toggleVoiceGender() {
-            if (currentVoiceGender === "Japanese Female") {
-                currentVoiceGender = "Japanese Male";
-            } else {
-                currentVoiceGender = "Japanese Female";
-            }
-        }
+        
     </script>
 </body>
 </html>
