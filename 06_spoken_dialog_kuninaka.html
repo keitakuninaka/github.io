@@ -23,14 +23,7 @@
             responsiveVoice.speak(response, "Japanese Female");
         }
 
-        // 音声の性別を切り替える関数
-        function toggleVoiceGender() {
-            if (currentVoiceGender === "Japanese Female") {
-                currentVoiceGender = "Japanese Male";
-            } else {
-                currentVoiceGender = "Japanese Female";
-            }
-        }
+
         
         // ユーザーの入力を処理する関数
         async function processUserInput(userInput) {
@@ -94,6 +87,15 @@
         // 音声入力を停止する関数
         function stopListening() {
             recognition.stop(); // 音声認識を停止
+        }
+
+        // 音声の性別を切り替える関数
+        function toggleVoiceGender() {
+            if (currentVoiceGender === "Japanese Female") {
+                currentVoiceGender = "Japanese Male";
+            } else {
+                currentVoiceGender = "Japanese Female";
+            }
         }
     </script>
 </body>
