@@ -19,19 +19,7 @@
         let recognition;
         let currentVoiceGender = "Japanese Female";
         
-        // 応答を音声で再生する関数
-        function speakResponse(response, voiceGender) {
-            responsiveVoice.speak(response, voiceGender);
-        }
         
-        // 音声の性別を切り替える関数
-        function toggleVoiceGender() {
-            if (currentVoiceGender === "Japanese Female") {
-                currentVoiceGender = "Japanese Male";
-            } else {
-                currentVoiceGender = "Japanese Female";
-            }
-        }
         
         // ユーザーの入力を処理する関数
         async function processUserInput(userInput) {
@@ -50,6 +38,19 @@
             
             // AIの応答を音声で再生
             speakAIResponse(currentVoiceGender);
+        }
+        // 応答を音声で再生する関数
+        function speakResponse(response, voiceGender) {
+            responsiveVoice.speak(response, voiceGender);
+        }
+        
+        // 音声の性別を切り替える関数
+        function toggleVoiceGender() {
+            if (currentVoiceGender === "Japanese Female") {
+                currentVoiceGender = "Japanese Male";
+            } else {
+                currentVoiceGender = "Japanese Female";
+            }
         }
         
         // AIの応答を生成する関数
