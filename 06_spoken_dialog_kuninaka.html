@@ -18,9 +18,9 @@
     <script>
         let recognition;
         
-        // 初音ミクの音声で応答を再生する関数
-        function speakAIResponse(response) {
-            responsiveVoice.speak(response, "Japanese Female");
+        // 応答を音声で再生する関数
+        function speakResponse(response, voiceGender) {
+            responsiveVoice.speak(response, voiceGender);
         }
 
 
