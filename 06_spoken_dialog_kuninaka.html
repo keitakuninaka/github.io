@@ -10,6 +10,8 @@
     <div id="conversation"></div>
     <button onclick="startListening()">音声入力開始</button>
     <button onclick="stopListening()">音声入力停止</button>
+
+    <button onclick="toggleVoiceGender()">音声の性別切り替え</button>
     
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=GqGVPyEy"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -19,6 +21,15 @@
         // 初音ミクの音声で応答を再生する関数
         function speakAIResponse(response) {
             responsiveVoice.speak(response, "Japanese Female");
+        }
+
+        // 音声の性別を切り替える関数
+        function toggleVoiceGender() {
+            if (currentVoiceGender === "Japanese Female") {
+                currentVoiceGender = "Japanese Male";
+            } else {
+                currentVoiceGender = "Japanese Female";
+            }
         }
         
         // ユーザーの入力を処理する関数
