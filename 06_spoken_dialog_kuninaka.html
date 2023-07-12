@@ -1,108 +1,48 @@
-<html lang="ja">
+<!DOCTYPE html>
+<html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<meta http-equiv="Content-Script-Type" content="text/javascript">
-<title>Spoken Dialog by Javascript</title>
+    <meta charset="UTF-8">
+    <title>初音ミクの音声対話</title>
 </head>
 <body>
-
-<h1>関西おすすめスポット</h1>
-
-<p>
-<button id="startButton">start</button>
-<button id="stopButton">stop</button>
-</p>
-
-<p>
-<div id="resultOutput"></div>
-</p>
-
-<script>
-// 応答の定義（ハッシュ）    
-var response = {
-    "和歌山のスポット。": ["和歌山県のスポットを表示します", "https://www.jalan.net/kankou/300000/"],
-    "大阪のスポット。": ["大阪府のスポットを表示します", "https://www.club-t.com/ct/kanko/guide/kokunai/info/k_009/?waad=Zar0ISig&click_product=yahoo_common&utm_source=yahoo&utm_medium=cpc&utm_campaign=00_DAS-zenryokoubuDA_meindomeinhaikasubete_yahoo_cpc_ds&utm_term="],
-    "京都のスポット。": ["京都府のスポットを表示します", "https://www.ikyu.com/kankou/area8037/"],
-    "奈良のスポット。": ["奈良県のスポットを表示します", "https://www.club-t.com/sp/special/japan/kyoto/spot2/?waad=Zar0ISig&click_product=yahoo_common&utm_source=yahoo&utm_medium=cpc&utm_campaign=00_DAS-zenryokoubuDA_meindomeinhaikasubete_yahoo_cpc_ds&utm_term="],
-    "兵庫のスポット。": ["兵庫県のスポットを表示します", "https://www.club-t.com/ct/kanko/guide/kokunai/info/k_180/?waad=Zar0ISig&click_product=yahoo_common&utm_source=yahoo&utm_medium=cpc&utm_campaign=00_DAS-zenryokoubuDA_meindomeinhaikasubete_yahoo_cpc_ds&utm_term="]
-};
-
-const startButton = document.querySelector('#startButton'); // 開始ボタン
-const stopButton = document.querySelector('#stopButton'); // 停止ボタン
-const resultOutput = document.querySelector('#resultOutput'); // 結果出力エリア
-
-if (!'SpeechSynthesisUtterance' in window) {
-    alert("あなたのブラウザはSpeech Synthesis APIに未対応です。");
-}
-const tts = new SpeechSynthesisUtterance(); // TTSインスタンスを生成
-//tts.text = textForm.value; // テキストを設定
-tts.lang = "ja-JP"; // 言語(日本語)、英語の場合はen-US
-tts.rate = 1.0; // 速度
-tts.pitch = 1.0; // 声の高さ
-tts.volume = 1.0; // 音量
-
-SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
-if (!'SpeechRecognition' in window) {
-    alert("あなたのブラウザはSpeech Recognition APIに未対応です。");
-}
-
-const asr = new SpeechRecognition(); // ASRインスタンスを生成
-asr.lang = "ja-JP"; // 言語（日本語）
-asr.interimResults = true; // 途中結果出力をオン
-asr.continuous = true; // 継続入力をオン
-
-let output = ''; // 出力
-
-// 認識結果が出力されたときのイベントハンドラ
-asr.onresult = function(event){
-    let transcript = event.results[event.resultIndex][0].transcript; // 結果文字列
-
-    let output_not_final = '';
-    if (event.results[event.resultIndex].isFinal) { // 結果が確定（Final）のとき
-	    asr.abort(); // 音声認識を停止
-	    let ret = response[transcript];
-
-        let answer;
-        let webpage;
-        
-        if(typeof ret == 'undefined'){
-	        answer = "ごめんなさい。わかりません。";
-    	}else{
-            answer = ret[0];
-            webpage = ret[1];
+    <h1>初音ミクの音声対話</h1>
+    
+    <div id="conversation"></div>
+    <input type="text" id="user-input" autofocus>
+    <button onclick="submitUserInput()">送信</button>
+    
+    <script>
+        // 初音ミクの応答を生成する関数
+        function generateMikuResponse(userInput) {
+            // 応答生成ロジックを実装する
+            // 例えば、ランダムな応答を返す場合は以下のようにする
+            const responses = [
+                "こんにちは！",
+                "どういたしまして！",
+                "ごめんなさい、よくわかりません…"
+            ];
+            const randomIndex = Math.floor(Math.random() * responses.length);
+            return responses[randomIndex];
         }
-
-        output += transcript + ' => ' + answer + '<br>';
-
-	    tts.text = answer;
-	    // 再生が終了（end）ときのイベントハンドラ（終了したときに実行される）
-	    tts.onend = function(event){
-            if(typeof webpage != 'undefined'){
-                location.href = webpage; // ページを移動
-            }   
-            asr.start(); // 音声認識を再開 
-	    }
-
-	    speechSynthesis.speak(tts); // 再生
-    } else { // 結果がまだ未確定のとき
-        output_not_final = '<span style="color:#ddd;">' + transcript + '</span>';
-    }
-    resultOutput.innerHTML = output + output_not_final;
-}
-
-// 開始ボタンのイベントハンドラ
-startButton.addEventListener('click', function() {
-    asr.start();
-})
-
-// 停止ボタンのイベントハンドラ
-stopButton.addEventListener('click', function() {
-    asr.abort();
-    asr.stop();
-})
-</script>
-
+        
+        // ユーザーの入力を処理する関数
+        function submitUserInput() {
+            const userInput = document.getElementById("user-input").value;
+            document.getElementById("user-input").value = "";
+            
+            // ユーザーの入力を表示
+            const userMessage = document.createElement("p");
+            userMessage.innerHTML = "ユーザー: " + userInput;
+            document.getElementById("conversation").appendChild(userMessage);
+            
+            // 初音ミクの応答を生成
+            const mikuResponse = generateMikuResponse(userInput);
+            
+            // 初音ミクの応答を表示
+            const mikuMessage = document.createElement("p");
+            mikuMessage.innerHTML = "初音ミク: " + mikuResponse;
+            document.getElementById("conversation").appendChild(mikuMessage);
+        }
+    </script>
 </body>
 </html>
