@@ -8,12 +8,18 @@
     <h1>初音ミクの音声対話</h1>
     
     <div id="conversation"></div>
-    <input type="text" id="user-input" autofocus>
-    <button onclick="submitUserInput()">送信</button>
+    <button onclick="startListening()">音声入力開始</button>
+    <button onclick="stopListening()">音声入力停止</button>
     
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_API_KEY"></script>
     <script>
-        // 初音ミクの応答を生成する関数
-        function generateMikuResponse(userInput) {
+        // 初音ミクの音声で応答を再生する関数
+        function speakMikuResponse(response) {
+            responsiveVoice.speak(response, "Japanese Female");
+        }
+        
+        // ユーザーの入力を処理する関数
+        function processUserInput(userInput) {
             // 応答生成ロジックを実装する
             // 例えば、ランダムな応答を返す場合は以下のようにする
             const responses = [
@@ -22,26 +28,31 @@
                 "ごめんなさい、よくわかりません…"
             ];
             const randomIndex = Math.floor(Math.random() * responses.length);
-            return responses[randomIndex];
-        }
-        
-        // ユーザーの入力を処理する関数
-        function submitUserInput() {
-            const userInput = document.getElementById("user-input").value;
-            document.getElementById("user-input").value = "";
+            const mikuResponse = responses[randomIndex];
             
             // ユーザーの入力を表示
             const userMessage = document.createElement("p");
             userMessage.innerHTML = "ユーザー: " + userInput;
             document.getElementById("conversation").appendChild(userMessage);
             
-            // 初音ミクの応答を生成
-            const mikuResponse = generateMikuResponse(userInput);
-            
             // 初音ミクの応答を表示
             const mikuMessage = document.createElement("p");
             mikuMessage.innerHTML = "初音ミク: " + mikuResponse;
             document.getElementById("conversation").appendChild(mikuMessage);
+            
+            // 初音ミクの応答を音声で再生
+            speakMikuResponse(mikuResponse);
+        }
+        
+        // 音声入力を開始する関数
+        function startListening() {
+            // 音声認識の開始処理を実装する
+            // ユーザーの音声をテキストに変換し、processUserInput関数に渡す
+        }
+        
+        // 音声入力を停止する関数
+        function stopListening() {
+            // 音声認識の停止処理を実装する
         }
     </script>
 </body>
